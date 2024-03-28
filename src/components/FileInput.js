@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
-import { BASEURL } from '../constants';
-import { useSelector,useDispatch } from 'react-redux';
+import { config } from '../constants';
+import { useDispatch } from 'react-redux';
 import { closeModal } from '../app/features/modalSlice';
 import { setDocument } from '../app/features/documentSlice';
 import {toast } from 'react-toastify';
@@ -11,7 +11,6 @@ function FileInput() {
   
   const [file, setFile] = useState();
   const [loading,setLoading] = useState(false);
-  const doc = useSelector((state) => state.document.doc);
   
   const dispatch = useDispatch();
 
@@ -28,17 +27,17 @@ function FileInput() {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    const url = BASEURL + '/document/create';
+    const url = config.BASEURL + '/document/create';
     const formData = new FormData();
     formData.append('file', file);
    
-    const config = {
+    const configHeaders = {
       headers: {
         'content-type': 'multipart/form-data',
       },
     };
     setLoading(true)
-    axios.post(url, formData, config)
+    axios.post(url, formData, configHeaders)
       .then((response) => {
         dispatch(setDocument(response.data));
         setLoading(false);setFile([]);

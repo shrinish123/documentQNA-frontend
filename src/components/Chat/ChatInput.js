@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addMessage } from '../../app/features/messagesSlice';
 import { setLoading } from '../../app/features/msgLoaderSlice';
 import axios from 'axios';
-import { BASEURL } from '../../constants';
+import { config } from '../../constants';
 import {toast } from 'react-toastify';
 
 
@@ -31,7 +31,7 @@ const ChatInput = () => {
       dispatch(setLoading(true));
       try{
         
-        const url =  `${BASEURL}/chat_message/get_answer/${doc.id}`;
+        const url =  `${config.BASEURL}/chat_message/get_answer/${doc.id}`;
         const response = await axios.post(url, { question : message });
         dispatch(addMessage({ text: response.data, sender: 'AI' }));
         dispatch(setLoading(false));

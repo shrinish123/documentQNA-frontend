@@ -4,7 +4,7 @@ const dev = {
 }
 
 const prod = {
-    BASEURL  : "https://api.example.com"
+    BASEURL  : "https://documentqna-backend.onrender.com"
 }
 
 export const config = process.env.NODE_ENV === 'development' ? dev : prod;
